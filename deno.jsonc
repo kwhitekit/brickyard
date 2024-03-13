@@ -1,0 +1,25 @@
+{
+  // see all imports/aliases here
+  "importMap": "import_map.json",
+  "compilerOptions": {
+    "noUnusedLocals": false,
+    "strictNullChecks": true,
+    "strictBindCallApply": true
+  },
+  "exclude": [
+    "dist",
+    "node_modules",
+    ".vite"
+  ],
+  "lint": {
+    "rules": {
+      "exclude": [
+        "no-explicit-any",
+        "ban-types",
+        "no-empty",
+        "no-unused-vars",
+        "require-await"
+      ]
+    }
+  }
+}
