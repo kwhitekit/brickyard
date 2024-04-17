@@ -5,32 +5,32 @@ import { is_obj } from "./is-obj.util.ts";
  * ### How to use (possible example):
  * 1. First:
  * ```ts
- * BrickOuter_simple.pre_init().intercept("some_fn", { fn: () => 'fake result!' });
+ * Brickyard.pre_init().intercept("some_fn", { fn: () => 'fake result!' });
  * ```
  * 2. Second:
  * ```ts
  * import { some_fn } from "./some_fn.ts";
  * import { another_fn } from "./another_fn.ts";
  *
- * const brick = await BrickOuter_simple.init();
+ * const brickyard = await Brickyard.init();
  *
  * export const {
  *  some_fn,
  *  another_fn,
- * } = brick.enroll({ some_fn, antoher_fn });
+ * } = brickyard.enroll({ some_fn, antoher_fn });
  *
  * 3. Use `some_fn` and `another_fn` as usual but import from this file.
  *
  * ## P.S.
  * #### (possible additional usage)
  * * add file from punkt 1 to .gitignore
- * * so in punkt so something like `const bricks = await BrickOuter_simple.init('./path/to/ignored/file.ts') // with path to ignored file`
+ * * so in punkt so something like `const bricks = await Brickyard.init('./path/to/ignored/file.ts') // with path to ignored file`
  * So now you can change implementation of `some_fn` and `another_fn` without changing the code!
  */
-export class BrickOuter_simple {
-  private static singleton = new BrickOuter_simple();
+export class Brickyard {
+  private static singleton = new Brickyard();
   private constructor() {
-    console.log("BrickOuter_simple_implementation");
+    console.log("Brickyard_implementation");
   }
 
   /**
@@ -38,7 +38,7 @@ export class BrickOuter_simple {
    * Should be called before `init` method.
    * So you can optionally register interceptors before the main initialization.
    */
-  public static pre_init(): Pick<BrickOuter_simple, "intercept"> {
+  public static pre_init(): Pick<Brickyard, "intercept"> {
     return this.singleton;
   }
 
@@ -48,7 +48,7 @@ export class BrickOuter_simple {
    */
   public static async init(
     path_to_possible_file_with_interceptored_bricks?: string,
-  ): Promise<Pick<BrickOuter_simple, "enroll">> {
+  ): Promise<Pick<Brickyard, "enroll">> {
     if (!path_to_possible_file_with_interceptored_bricks) {
       return this.singleton;
     }
@@ -58,11 +58,11 @@ export class BrickOuter_simple {
         path_to_possible_file_with_interceptored_bricks
       );
 
-      if (interceptored instanceof BrickOuter_simple) {
+      if (interceptored instanceof Brickyard) {
         return interceptored;
       } else {
         throw new Error(
-          `Default import from ${path_to_possible_file_with_interceptored_bricks} is not instance of BrickOuter_simple... so it is ignored.`,
+          `Default import from ${path_to_possible_file_with_interceptored_bricks} is not instance of Brickyard... so it is ignored.`,
         );
       }
     } catch (err) {
@@ -78,11 +78,11 @@ export class BrickOuter_simple {
   /**
    * @description
    * Register interceptor for the function with `id`.
-   * (will be ignored if no such `id` and throw error if `id` is already the member of BrickOuter)
+   * (will be ignored if no such `id` and throw error if `id` is already the member of Brickyard)
    */
   public intercept<T extends Fn>(id: string, interceptor: Interceptor<T>) {
     if (this.#stuff.has(id)) {
-      throw new Error(`This id (${id}) is already the member of BrickOuter`);
+      throw new Error(`This id (${id}) is already the member of Brickyard`);
     }
     this.#stuff.set(id, interceptor);
 

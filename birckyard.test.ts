@@ -1,18 +1,18 @@
 import { assertEquals } from "deno/assert";
-import { BrickOuter_simple } from "./brick-outer.simple.ts";
+import { Brickyard } from "./brickyard.ts";
 
 function origin_fn(url: string, config: RequestInit) {
   return fetch(url, config).catch((e) => "error!");
 }
 
-Deno.test("BrickOuter_simple", async (t) => {
+Deno.test("Brickyard", async (t) => {
   await t.step("enrolled app should worked without changes", async () => {
-    const brick = await BrickOuter_simple.init();
+    const brickyard = await Brickyard.init();
     const res = await origin_fn("http://localhost/will-fail", {});
 
     assertEquals(res, "error!");
 
-    const reexport = brick.enroll({ origin_fn });
+    const reexport = brickyard.enroll({ origin_fn });
 
     assertEquals(
       await reexport.origin_fn("http://localhost/will-fail", {}),
@@ -20,15 +20,15 @@ Deno.test("BrickOuter_simple", async (t) => {
     );
   });
   await t.step("enrolled app should change implementation", async () => {
-    BrickOuter_simple.pre_init().intercept("origin_fn", {
+    Brickyard.pre_init().intercept("origin_fn", {
       fn: () => "success!",
     });
-    const brick = await BrickOuter_simple.init();
+    const brickyard = await Brickyard.init();
     const res = await origin_fn("http://localhost/will-fail", {});
 
     assertEquals(res, "error!");
 
-    const reexport = brick.enroll({ origin_fn });
+    const reexport = brickyard.enroll({ origin_fn });
 
     assertEquals(
       await reexport.origin_fn("http://localhost/will-fail", {}),
