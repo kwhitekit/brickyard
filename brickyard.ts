@@ -80,7 +80,7 @@ export class Brickyard {
    * Register interceptor for the function with `id`.
    * (will be ignored if no such `id` and throw error if `id` is already the member of Brickyard)
    */
-  public intercept<T extends Fn>(id: string, interceptor: Interceptor<T>) {
+  public intercept<T extends Fn>(id: string, interceptor: Interceptor<T>): Brickyard {
     if (this.#stuff.has(id)) {
       throw new Error(`This id (${id}) is already the member of Brickyard`);
     }
@@ -94,7 +94,7 @@ export class Brickyard {
    * Pass the object with functions to enroll them.
    * And use returned result as reexport of the original stuff for your project.
    */
-  public enroll<T extends Record<string, Fn>>(candidates: T) {
+  public enroll<T extends Record<string, Fn>>(candidates: T): T {
     if (this.#stuff.size === 0) {
       console.warn("No interceptors found");
       console.info("Be sure to call .intercept() method before .enroll()");
