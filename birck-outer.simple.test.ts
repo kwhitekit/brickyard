@@ -7,26 +7,31 @@ function origin_fn(url: string, config: RequestInit) {
 
 Deno.test("BrickOuter_simple", async (t) => {
   await t.step("enrolled app should worked without changes", async () => {
-    const brick = BrickOuter_simple.init();
+    const brick = await BrickOuter_simple.init();
     const res = await origin_fn("http://localhost/will-fail", {});
 
     assertEquals(res, "error!");
 
-    const intercepted = brick.enroll(origin_fn, "origin_fn");
-
-    assertEquals(await intercepted("http://localhost/will-fail", {}), "error!");
-  });
-  await t.step("enrolled app should change implementation", async () => {
-    const brick = BrickOuter_simple.init();
-    brick.intercept("origin_fn", { fn: () => "success!" });
-    const res = await origin_fn("http://localhost/will-fail", {});
-
-    assertEquals(res, "error!");
-
-    const intercepted = brick.enroll(origin_fn, "origin_fn");
+    const reexport = brick.enroll({ origin_fn });
 
     assertEquals(
-      await intercepted("http://localhost/will-fail", {}),
+      await reexport.origin_fn("http://localhost/will-fail", {}),
+      "error!",
+    );
+  });
+  await t.step("enrolled app should change implementation", async () => {
+    BrickOuter_simple.pre_init().intercept("origin_fn", {
+      fn: () => "success!",
+    });
+    const brick = await BrickOuter_simple.init();
+    const res = await origin_fn("http://localhost/will-fail", {});
+
+    assertEquals(res, "error!");
+
+    const reexport = brick.enroll({ origin_fn });
+
+    assertEquals(
+      await reexport.origin_fn("http://localhost/will-fail", {}),
       "success!",
     );
   });
