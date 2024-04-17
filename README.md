@@ -1,4 +1,4 @@
-## _[Follow this link to skip these many words at once to code](./brick-outer.simple.ts)_
+## _[at once to example](#example)_
 
 # About
 
@@ -43,3 +43,30 @@ The util name `BrickOuter` is stands from imagination of your application like
 that you want to test at once. > **So you get your brick out ot
 replace/reconfigure for test.** >
 
+
+## Example:
+
+* @description
+* ### How to use (possible example):
+* 1. First:
+  ```ts
+  BrickOuter_simple.pre_init().intercept("some_fn", { fn: () => 'fake result!' });
+  ```
+* 2. Second:
+  ```ts
+  import { some_fn } from "./some_fn.ts";
+  import { another_fn } from "./another_fn.ts";
+
+  const brick = await BrickOuter_simple.init();
+
+  export const {
+   some_fn,
+   another_fn,
+  } = brick.enroll({ some_fn, antoher_fn });
+  ```
+* 3. Use `some_fn` and `another_fn` as usual but import from this file.
+    ## P.S.
+    #### (possible additional usage)
+    * add file from punkt 1 to .gitignore
+    * so in punkt so something like `const bricks = await BrickOuter_simple.init('./path/to/ignored/file.ts') // with path to ignored file`
+    * So now you can change implementation of `some_fn` and `another_fn` without changing the code!
