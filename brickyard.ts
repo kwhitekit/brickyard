@@ -54,9 +54,9 @@ export class Brickyard {
     }
 
     try {
-      const interceptored = await import(
+      const interceptored = (await import(
         path_to_possible_file_with_interceptored_bricks
-      );
+      )).default;
 
       if (interceptored instanceof Brickyard) {
         return interceptored;
