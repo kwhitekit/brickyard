@@ -44,7 +44,8 @@ export class Brickyard {
 
   /**
    * @description
-   * If you want to use your interceptors (if such ones exists) - should be called after `pre_init` method.
+   * ### Should be called after `pre_init` method. If you want to use your interceptors (if such ones exists).
+   * ## The path to the file should be relative to the project (directory from where node/deno is run).
    */
   public static async init(
     path_to_possible_file_with_interceptored_bricks?: string,
@@ -80,7 +81,10 @@ export class Brickyard {
    * Register interceptor for the function with `id`.
    * (will be ignored if no such `id` and throw error if `id` is already the member of Brickyard)
    */
-  public intercept<T extends Fn>(id: string, interceptor: Interceptor<T>): Brickyard {
+  public intercept<T extends Fn>(
+    id: string,
+    interceptor: Interceptor<T>,
+  ): Brickyard {
     if (this.#stuff.has(id)) {
       throw new Error(`This id (${id}) is already the member of Brickyard`);
     }
