@@ -1,3 +1,3 @@
-import { Brickyard } from '@nik-kita/brickyard/mod';
+import { Brickyard } from '';
 
 console.log(Brickyard);

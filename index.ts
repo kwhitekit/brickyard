@@ -1,1 +1,1 @@
-export { Brickyard } from "./mod.ts";
+export { Brickyard } from "./brickyard.ts";
