@@ -6,4 +6,6 @@ const brickyard = Brickyard.init(complete());
 
 export const bricks = brickyard.enroll({
   hi,
+  hi_origin: hi,
+  ok: () => true,
 });

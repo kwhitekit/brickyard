@@ -2,7 +2,10 @@ import { Brickyard } from "@nik-kita/brickyard";
 
 const brickyard = Brickyard.pre_init();
 
-export const { complete } = brickyard.intercept("hi", {
-  args: ["from interception!"],
-  args_strategy: "replace",
-});
+export const { complete } = brickyard
+  .intercept("hi", {
+    args: ["from interception!"],
+    args_strategy: "replace",
+  })
+  .and("ok", { fn: () => false })
+  .and("wtf", { fn: () => "wtf" });
