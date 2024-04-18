@@ -2,12 +2,12 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@nik-kita/brickyard@^0.1.2": "jsr:@nik-kita/brickyard@0.1.2",
+      "jsr:@nik-kita/brickyard@^0.1.99": "jsr:@nik-kita/brickyard@0.1.99",
       "npm:superjson@1.13.3": "npm:superjson@1.13.3"
     },
     "jsr": {
-      "@nik-kita/brickyard@0.1.2": {
-        "integrity": "7ac9ea084d50fe04012c5527160e54b9375f62365a46edef2f54f1a19760c572"
+      "@nik-kita/brickyard@0.1.99": {
+        "integrity": "fa227e3a3585a0762f194ccdbadd7c2d47750610c05e824899b94a472a77913f"
       }
     },
     "npm": {
@@ -35,7 +35,7 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@nik-kita/brickyard@^0.1.2"
+      "jsr:@nik-kita/brickyard@^0.1.99"
     ]
   }
 }
