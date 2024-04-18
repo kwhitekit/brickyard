@@ -1,4 +1,4 @@
-import { assert, assertEquals } from "deno/assert";
+import { assert } from "deno/assert";
 import { Brickyard } from "../brickyard.ts";
 
 Deno.test("real interceptor-file", async () => {
@@ -6,7 +6,6 @@ Deno.test("real interceptor-file", async () => {
 
   assert(brickyard instanceof Brickyard);
 });
-
 
 Deno.test("fake interceptor-file", async () => {
   const brickyard = await Brickyard.init("./__test__/fake-interceptor.ts");
