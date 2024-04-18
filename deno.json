@@ -1,7 +1,7 @@
 {
   "importMap": "import_map.json",
   "name": "@nik-kita/brickyard",
-  "version": "0.1.103",
+  "version": "0.1.104",
   "exports": "./mod.ts",
   "compilerOptions": {
     "noUnusedLocals": false,
