@@ -47,31 +47,11 @@ export class Brickyard {
    * ### Should be called after `pre_init` method. If you want to use your interceptors (if such ones exists).
    * ## The path to the file should be relative to the project (directory from where node/deno is run).
    */
-  public static async init(
-    path_to_possible_file_with_interceptored_bricks?: string,
-  ): Promise<Pick<Brickyard, "enroll">> {
-    if (!path_to_possible_file_with_interceptored_bricks) {
-      return this.singleton;
-    }
-
-    try {
-      const interceptored = (await import(
-        path_to_possible_file_with_interceptored_bricks
-      )).default;
-
-      if (interceptored instanceof Brickyard) {
-        return interceptored;
-      } else {
-        throw new Error(
-          `Default import from ${path_to_possible_file_with_interceptored_bricks} is not instance of Brickyard... so it is ignored.`,
-        );
-      }
-    } catch (err) {
-      console.debug("=============================");
-      console.warn(err);
-      console.debug("=============================");
-      return this.singleton;
-    }
+  public static init(
+    interceptor_complete_flag?: BrickCompleter,
+  ): Pick<Brickyard, "enroll"> {
+    interceptor_complete_flag;
+    return this.singleton as Pick<Brickyard, "enroll">;
   }
 
   #stuff = new Map<string, Interceptor>();
@@ -84,13 +64,19 @@ export class Brickyard {
   public intercept<T extends Fn>(
     id: string,
     interceptor: Interceptor<T>,
-  ): Brickyard {
+  ): {
+    and: Brickyard["intercept"];
+    complete: () => BrickCompleter;
+  } {
     if (this.#stuff.has(id)) {
       throw new Error(`This id (${id}) is already the member of Brickyard`);
     }
     this.#stuff.set(id, interceptor);
 
-    return this;
+    return {
+      and: this.intercept.bind(this),
+      complete: () => new BrickCompleter(),
+    };
   }
 
   /**
@@ -167,3 +153,16 @@ type Interceptor<T extends Fn = Fn> = {
   args_strategy: "merge" | "replace";
 };
 type Fn = (...args: any[]) => any;
+
+/**
+ * @description
+ * This is util-helper only class.
+ * So it is a kind of a trick to make you call pre_init() method before init() method.
+ * It has not any real actions etc.
+ * It's purpose is to enforce you place it into the Brickyard.init() method.
+ * But because of to get it your should first call Brickyard.pre_init() method.
+ * Typescript may tip you to do it in the right order.
+ */
+class BrickCompleter {
+  private __type__ = BrickCompleter.name;
+}

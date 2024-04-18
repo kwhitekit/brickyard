@@ -1,3 +1,5 @@
 import { Brickyard } from "../brickyard.ts";
 
-export default Brickyard.pre_init();
+export const {
+  complete,
+} = Brickyard.pre_init().intercept("", { fn: () => {} });

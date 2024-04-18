@@ -49,21 +49,39 @@ replace/reconfigure for test.** >
 
 1. First:
   ```ts
-  Brickyard.pre_init().intercept("some_fn", { fn: () => 'fake result!' });
+  const const {
+    complete, 
+  } = Brickyard
+    .pre_init()
+    .intercept("some_fn", { fn: () => 'fake result!' })
+    .and('some_another_fn', { args: [1, 2], args_strategy: 'replace' });
   ```
 2. Second:
   ```ts
   import { some_fn } from "./some_fn.ts";
   import { another_fn } from "./another_fn.ts";
+  import { complete } from './your-backyard.interceptor.ts'; // optional
 
-  const brickyard = await Brickyard.init();
+  /**
+   * @description
+   * The same as
+   * ```ts
+   *   const brickyard = Brickyard.init();
+   * ```
+   * Only more explicit control that you:
+   * 1. Make .pre_init() call
+   * 2. Include it to your project importing somewhere and somewhen
+   * 3. AND DO IT BEFORE .init() call
+   */
+  const brickyard = Brickyard.init(complete());
 
-  export const {
-   some_fn,
-   another_fn,
-  } = brickyard.enroll({ some_fn, antoher_fn });
+  const origin = { some_fn, antoher_fn };
+
+  // bricks is the exactly the same type as origin!
+  // so it is like simple re-export
+  export const bricks = brickyard.enroll(origin);
   ```
-3. Use `some_fn` and `another_fn` as usual but import from this file.
+3. Use `bricks.some_fn` and `bricks.another_fn` as original ones but optionaly mock/modify them if you need.
     
 
 ## P.S.
