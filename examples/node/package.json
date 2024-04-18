@@ -14,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nik-kita/brickyard": "npm:@jsr/nik-kita__brickyard@^0.1.103"
+    "@nik-kita/brickyard": "npm:@jsr/nik-kita__brickyard@^0.1.104"
   }
 }
