@@ -14,8 +14,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@jsr/nik-kita__brickyard": "^0.1.100",
-    "@nik-kita/brickyard": "npm:@jsr/nik-kita__brickyard@0.1.100"
+    "@jsr/nik-kita__brickyard": "^0.1.101",
+    "@nik-kita/brickyard": "npm:@jsr/nik-kita__brickyard@0.1.101"
   },
   "devDependencies": {
     "typescript": "^5.4.5"

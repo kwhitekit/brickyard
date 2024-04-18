@@ -1,3 +1,3 @@
-import { Brickyard } from '';
+import { Brickyard } from '@nik-kita/brickyard';
 
 console.log(Brickyard);
