@@ -29,8 +29,8 @@ import { some_fn } from "./some_fn.ts";
 import { another_fn } from "./another_fn.ts";
 
 const interceptor = Brickyard
-  .intercept("some_fn", { fn: () => "intercepted some_fn" })
   .pre_init()
+  .intercept("some_fn", { fn: () => "intercepted some_fn" })
   .complete();
 
 export const bircks = Brickyard

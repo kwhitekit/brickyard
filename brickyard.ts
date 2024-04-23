@@ -53,8 +53,8 @@ import { is_obj } from "./is-obj.util.ts";
  * import { another_fn } from "./another_fn.ts";
  *
  * export const interceptor = Brickyard
- *     .intercept('some_fn', { fn: () => 'intercepted some_fn' })
  *     .pre_init()
+ *     .intercept('some_fn', { fn: () => 'intercepted some_fn' })
  *     .complete();
  *
  * // bricks.ts
