@@ -1,4 +1,85 @@
-## _[at once to example](#example)_
+## _[Read about](#about)_
+
+## Examples:
+
+#### minimal:
+
+```ts
+// bricks.ts
+import { some_fn } from "./some_fn.ts";
+import { another_fn } from "./another_fn.ts";
+
+export const bircks = Brickyard
+  .init(Brickyard.pre_init().complete())
+  .enroll({ some_fn, another_fn });
+
+// main.ts
+import { bricks } from "./bricks.ts";
+
+bricks.some_fn();
+```
+
+> but actualy example above works exactly as a simple reexport.
+
+#### more usefull example:
+
+```ts
+// bricks.ts
+import { some_fn } from "./some_fn.ts";
+import { another_fn } from "./another_fn.ts";
+
+const interceptor = Brickyard
+  .intercept("some_fn", { fn: () => "intercepted some_fn" })
+  .pre_init()
+  .complete();
+
+export const bircks = Brickyard
+  .init(interceptor)
+  .enroll({ some_fn, another_fn });
+
+// main.ts
+import { bricks } from "./bricks.ts";
+
+bricks.some_fn();
+```
+
+#### Advanced example:
+
+> the same as above except the interceptor is placed in the separate file and
+> ignored by git. but you can change the implementation of `some_fn` and
+> `another_fn` without changing the code.
+
+```ts
+// .interceptor.ts
+import { some_fn } from "./some_fn.ts";
+import { another_fn } from "./another_fn.ts";
+
+export const interceptor = Brickyard
+  .intercept("some_fn", { fn: () => "intercepted some_fn" })
+  .pre_init()
+  .complete();
+
+// bricks.ts
+import { interceptor } from "./.interceptor.ts";
+
+export const bircks = Brickyard
+  .init(interceptor)
+  .enroll({ some_fn, another_fn });
+
+// main.ts
+import { bricks } from "./bricks.ts";
+
+bricks.some_fn();
+```
+
+#### P.S. if you hide your interceptor file with `.gitignore` you should create this file manually (even if you don't want to do interceptions)
+
+> so it can be as possible simple:
+
+```ts
+// .interceptor.ts, ignored by git
+export const interceptor = Brickyard.pre_init().complete();
+```
 
 # About
 
@@ -42,54 +123,3 @@ The util name `Brickyard` is stands from imagination of your application like
 `testable` means that you provide possibility to `spy/mock` of functionality
 that you want to test at once. > **So you get your brickyard out ot
 replace/reconfigure for test.** >
-
-
-## Example:
-> How to use (possible example):
-
-1. First:
-  ```ts
-  const const {
-    complete, 
-  } = Brickyard
-    .pre_init()
-    .intercept("some_fn", { fn: () => 'fake result!' })
-    .and('some_another_fn', { args: [1, 2], args_strategy: 'replace' });
-  ```
-2. Second:
-  ```ts
-  import { some_fn } from "./some_fn.ts";
-  import { another_fn } from "./another_fn.ts";
-  import { complete } from './your-backyard.interceptor.ts'; // optional
-
-  /**
-   * @description
-   * The same as
-   * ```ts
-   *   const brickyard = Brickyard.init();
-   * ```
-   * Only more explicit control that you:
-   * 1. Make .pre_init() call
-   * 2. Include it to your project importing somewhere and somewhen
-   * 3. AND DO IT BEFORE .init() call
-   */
-  const brickyard = Brickyard.init(complete());
-
-  const origin = { some_fn, antoher_fn };
-
-  // bricks is the exactly the same type as origin!
-  // so it is like simple re-export
-  export const bricks = brickyard.enroll(origin);
-  ```
-3. Use `bricks.some_fn` and `bricks.another_fn` as original ones but optionaly mock/modify them if you need.
-    
-
-## P.S.
-> (possible additional usage)
-
-* add file from punkt 1 to `.gitignore`
-* so in punkt so something like 
-  ```ts
-  const bricks = await Brickyard.init('./path/to/ignored/file.ts') // with path to ignored file (may be from `.env` aka process.env.PATH_TO_BRICKS)
-  ```
-* So now you can change implementation of `some_fn` and `another_fn` without changing the code!

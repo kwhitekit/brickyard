@@ -1,7 +1,6 @@
 import { assert } from "deno/assert";
 import { Brickyard } from "../brickyard.ts";
-import { complete } from './interceptor.ts';
-
+import { complete } from "./interceptor.ts";
 
 Deno.test("real interceptor-file", async () => {
   const brickyard = await Brickyard.init(complete());
@@ -10,7 +9,7 @@ Deno.test("real interceptor-file", async () => {
 });
 
 Deno.test("fake interceptor-file", async () => {
-  const brickyard = await Brickyard.init();
+  const brickyard = await Brickyard.init(Brickyard.pre_init().complete());
 
   assert(brickyard instanceof Brickyard);
 });

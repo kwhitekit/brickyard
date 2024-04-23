@@ -7,7 +7,7 @@ function origin_fn(url: string, config: RequestInit) {
 
 Deno.test("Brickyard", async (t) => {
   await t.step("enrolled app should worked without changes", async () => {
-    const brickyard = Brickyard.init();
+    const brickyard = Brickyard.init(Brickyard.pre_init().complete());
     const res = await origin_fn("http://localhost/will-fail", {});
 
     assertEquals(res, "error!");
@@ -20,17 +20,17 @@ Deno.test("Brickyard", async (t) => {
     );
   });
   await t.step("enrolled app should change implementation", async () => {
-    const birck_interception_complete_flag = Brickyard
+    const interceptor = Brickyard
       .pre_init()
       .intercept("origin_fn", {
         fn: () => "success!",
       })
-      .and("something", {
+      .intercept("something", {
         args: ["no-such function"],
         args_strategy: "replace",
       })
       .complete();
-    const brickyard = Brickyard.init(birck_interception_complete_flag);
+    const brickyard = Brickyard.init(interceptor);
     const res = await origin_fn("http://localhost/will-fail", {});
 
     assertEquals(res, "error!");
