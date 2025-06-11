@@ -4,8 +4,9 @@ export JSON_FILES_WITH_VERSION := 'deno.json'
 
 alias v := version
 
-@default:
-    just --choose
+fmt:
+    just --fmt --unstable
+    deno fmt --unstable-component --unstable-sql
 
 bump: _pre_bump _bump
 
@@ -36,7 +37,3 @@ version:
         sub(/\s+.*/, "");
         print
       }'
-
-fmt:
-    just --fmt --unstable
-    deno fmt --unstable-component --unstable-sql
