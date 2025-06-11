@@ -1,5 +1,5 @@
-import { assert } from "deno/assert";
-import { Brickyard } from "../brickyard.ts";
+import { assert } from "@std/assert";
+import { Brickyard } from "../src/brickyard.ts";
 import { complete } from "./interceptor.ts";
 
 Deno.test("real interceptor-file", async () => {

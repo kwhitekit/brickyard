@@ -1,5 +1,5 @@
-import { assertEquals } from "deno/assert";
-import { Brickyard } from "../brickyard.ts";
+import { assertEquals } from "@std/assert";
+import { Brickyard } from "../src/brickyard.ts";
 
 function origin_fn(url: string, config: RequestInit) {
   return fetch(url, config).catch((e) => "error!");

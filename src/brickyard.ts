@@ -9,7 +9,7 @@ import { is_obj } from "./is-obj.util.ts";
  * import { some_fn } from "./some_fn.ts";
  * import { another_fn } from "./another_fn.ts";
  *
- * export const bircks = Brickyard
+ * export const bricks = Brickyard
  *    .init(Brickyard.pre_init().complete())
  *    .enroll({ some_fn, another_fn });
  *
@@ -19,9 +19,9 @@ import { is_obj } from "./is-obj.util.ts";
  * bricks.some_fn();
  * ```
  *
- * > but actualy example above works exactly as a simple reexport.
+ * > but actually example above works exactly as a simple reexport.
  *
- * #### Usefull example:
+ * #### Useful example:
  *
  * ```ts
  * // bricks.ts
@@ -33,7 +33,7 @@ import { is_obj } from "./is-obj.util.ts";
  *     .pre_init()
  *     .complete();
  *
- * export const bircks = Brickyard
+ * export const bricks = Brickyard
  *    .init(interceptor)
  *    .enroll({ some_fn, another_fn });
  *
@@ -60,7 +60,7 @@ import { is_obj } from "./is-obj.util.ts";
  * // bricks.ts
  * import { interceptor } from "./.interceptor.ts";
  *
- * export const bircks = Brickyard
+ * export const bricks = Brickyard
  *    .init(interceptor)
  *    .enroll({ some_fn, another_fn });
  *

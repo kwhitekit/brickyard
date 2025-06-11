@@ -1,5 +1,5 @@
-import { assert } from "deno/assert";
-import { Brickyard } from "../brickyard.ts";
+import { assert } from "@std/assert";
+import { Brickyard } from "../src/brickyard.ts";
 
 Deno.test("many instances", async () => {
   const bricks = Brickyard.init(Brickyard.pre_init().complete()).enroll({

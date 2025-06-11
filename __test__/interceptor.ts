@@ -1,4 +1,4 @@
-import { Brickyard } from "../brickyard.ts";
+import { Brickyard } from "../src/brickyard.ts";
 
 export const {
   complete,

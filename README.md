@@ -9,7 +9,7 @@
 import { some_fn } from "./some_fn.ts";
 import { another_fn } from "./another_fn.ts";
 
-export const bircks = Brickyard
+export const bricks = Brickyard
   .init(Brickyard.pre_init().complete())
   .enroll({ some_fn, another_fn });
 
@@ -19,9 +19,9 @@ import { bricks } from "./bricks.ts";
 bricks.some_fn();
 ```
 
-> but actualy example above works exactly as a simple reexport.
+> but actually example above works exactly as a simple reexport.
 
-#### more usefull example:
+#### more useful example:
 
 ```ts
 // bricks.ts
@@ -33,7 +33,7 @@ const interceptor = Brickyard
   .intercept("some_fn", { fn: () => "intercepted some_fn" })
   .complete();
 
-export const bircks = Brickyard
+export const bricks = Brickyard
   .init(interceptor)
   .enroll({ some_fn, another_fn });
 
@@ -62,7 +62,7 @@ export const interceptor = Brickyard
 // bricks.ts
 import { interceptor } from "./.interceptor.ts";
 
-export const bircks = Brickyard
+export const bricks = Brickyard
   .init(interceptor)
   .enroll({ some_fn, another_fn });
 
@@ -88,7 +88,7 @@ export const interceptor = Brickyard.pre_init().complete();
 - strong project should be tested
 - to be tested the project should be testable!
 - so the existence of tests is not guarantee something
-- testable mean determenistic, abstogation etc. pure function is ideal
+- testable mean deterministic, mock-friendly etc. pure function is ideal
 - pure function in simple words mean that:
   - same args => same result
   - as possible independence of outer scope
@@ -102,7 +102,7 @@ export const interceptor = Brickyard.pre_init().complete();
 
 - mocking and spying during tests
   - for example `jest.spy() / jest.mock`
-  - problem that if source code is complecated enough or is depended on huge
+  - problem that if source code is complected enough or is depended on huge
     amount of some stuff - it still become hard/impossible for testing even with
     such instruments
 - simple `.env` manipulations
