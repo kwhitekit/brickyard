@@ -1,9 +1,13 @@
 {
   "name": "@nik-kita/brickyard",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "license": "MIT",
   "exports": "./src/mod.ts",
   "compilerOptions": {
+    "allowJs": true,
+    "rootDirs": [
+      "src"
+    ],
     "noUnusedLocals": false,
     "strictNullChecks": true,
     "strictBindCallApply": true

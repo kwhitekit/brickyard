@@ -38,11 +38,9 @@ version:
         print
       }'
 
-build target='npm':
-    just bump
-    deno run -A scripts/build-npm.ts
-    @just fmt
-
 publish:
+    just bump
+    just fmt
+    git add -A
+    git commit
     deno publish
-    cd npm && npm publish
