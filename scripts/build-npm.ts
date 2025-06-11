@@ -18,10 +18,7 @@ await build({
     version: Deno.args[0],
     description: "Dead-simple solution for mocking.",
     license: "MIT",
-    repository: {
-      type: "git",
-      url: "git+https://github.com/kwhitekit/brickyard",
-    },
+    repository: "https://github.com/kwhitekit/brickyard",
     bugs: {
       url: "https://github.com/kwhitekit/brickyard/issues",
     },
