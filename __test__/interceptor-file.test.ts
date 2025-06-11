@@ -1,4 +1,4 @@
-import { assert } from "deno/assert";
+import { assert } from "@std/assert";
 import { Brickyard } from "../brickyard.ts";
 import { complete } from "./interceptor.ts";
 

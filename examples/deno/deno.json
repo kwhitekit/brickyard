@@ -1,6 +1,0 @@
-{
-  "tasks": {
-    "dev": "deno run --allow-read=brickyard.intercept.ts main.ts"
-  },
-  "imports": { "@nik-kita/brickyard": "jsr:@nik-kita/brickyard@^0.2.0" }
-}

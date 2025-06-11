@@ -1,5 +1,4 @@
 {
-  "importMap": "import_map.json",
   "name": "@nik-kita/brickyard",
   "version": "0.3.1",
   "exports": "./mod.ts",
@@ -23,5 +22,8 @@
         "require-await"
       ]
     }
+  },
+  "imports": {
+    "@std/assert": "jsr:@std/assert@^1.0.13"
   }
 }
