@@ -1,0 +1,25 @@
+{
+  "name": "@nik-kita/brickyard",
+  "description": "Dead-simple solution for mocking.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kwhitekit/brickyard"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kwhitekit/brickyard/issues"
+  },
+  "main": "./script/mod.js",
+  "module": "./esm/mod.js",
+  "exports": {
+    ".": {
+      "import": "./esm/mod.js",
+      "require": "./script/mod.js"
+    }
+  },
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^20.9.0"
+  },
+  "_generatedBy": "dnt@dev"
+}

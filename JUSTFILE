@@ -37,3 +37,12 @@ version:
         sub(/\s+.*/, "");
         print
       }'
+
+build target='npm':
+    just bump
+    deno run -A scripts/build-npm.ts
+    @just fmt
+
+publish:
+    deno publish
+    cd npm && npm publish
