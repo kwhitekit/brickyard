@@ -1,10 +1,7 @@
 {
   "name": "@nik-kita/brickyard",
   "description": "Dead-simple solution for mocking.",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kwhitekit/brickyard"
-  },
+  "repository": "https://github.com/kwhitekit/brickyard",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kwhitekit/brickyard/issues"
